@@ -36,5 +36,6 @@ build/
 
 *.cmd
 *.md
-
+*.jar
+*.exe
 mvnw
