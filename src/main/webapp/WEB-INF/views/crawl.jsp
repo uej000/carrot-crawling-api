@@ -1,9 +1,9 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.cmsoft.crawling.dto.CrawlDto" %>
+<%@ page import="com.cmsoft.crawling.dto.CrawlDto" %>SS
 <%@ page import="com.cmsoft.crawling.crawl.Crawling" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="ko">
+<<!doctype html>
+<html lang="kr">
 <head>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <meta charset="UTF-8">
@@ -18,20 +18,20 @@
 <%
     Crawling crawler = new Crawling();
     ArrayList<CrawlDto> list = crawler.crawl();
-    String html_tag = "<table><tr><th><제목></th><th><가격></th><th><지역></th><th><관심 수></th><th><채팅 수></th></tr>";
+    String html_tag = "<table><tr><th><제목></th><th><가격></th><th><위치></th><th><관심></th><th><채팅 수></th></tr>";
     if (list != null && !list.isEmpty()) {
-        for (CrawlDto crawlDto : list) {
+        for (CrawlDto dto : list) {
             html_tag += "<tr>";
-            html_tag += "<td>" + crawlDto.getTitle() + "</td>";
-            html_tag += "<td>" + crawlDto.getPrice() + "</td>";
-            html_tag += "<td>" + crawlDto.getLocation() + "</td>";
-            html_tag += "<td>" + crawlDto.getInterest() + "</td>";
-            html_tag += "<td>" + crawlDto.getChatCount() + "</td>";
+            html_tag += "<td>" + dto.getTitle() + "</td>";
+            html_tag += "<td>" + dto.getPrice() + "</td>";
+            html_tag += "<td>" + dto.getLocation() + "</td>";
+            html_tag += "<td>" + dto.getInterest() + "</td>";
+            html_tag += "<td>" + dto.getChatCount() + "</td>";
             html_tag += "</tr>";
         }
         html_tag += "</table>";
     } else {
-        html_tag = "<p>데이터가 없습니다.</p>";
+        html_tag = "<p>회원 데이터가 없습니다.</p>";
     }
 %>
 <%= html_tag %>

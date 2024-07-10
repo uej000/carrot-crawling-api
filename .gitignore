@@ -33,9 +33,9 @@ build/
 .vscode/
 
 *.properties
-
+*.exe
+*.jar
 *.cmd
 *.md
-*.jar
-*.exe
+
 mvnw
