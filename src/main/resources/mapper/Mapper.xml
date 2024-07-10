@@ -5,7 +5,7 @@
 <mapper namespace="com.cmsoft.crawling.mapper.CrawlMapper">
 
     <select id="getCrawlList" resultType="com.cmsoft.crawling.dto.CrawlDto">
-        SELECT * FROM crawl
+        select * from crawl
     </select>
 
     <insert id="insertData" parameterType="com.cmsoft.crawling.dto.CrawlDto">

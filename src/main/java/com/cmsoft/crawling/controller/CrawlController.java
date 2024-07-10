@@ -27,22 +27,26 @@ public class CrawlController {
         this.crawlService = crawlService;
     }
 
-    @GetMapping("/")
-    public String home(Model model) {
+    @GetMapping("/data")
+    public String getData(Model model) {
         List<CrawlDto> crawlDtoList = crawlService.getCrawlList();
         model.addAttribute("crawlDtoList", crawlDtoList);
+        return "datalist";
+    }
+
+    @GetMapping("/crawl")
+    public String crawlPage() {
+
         return "crawl";
     }
 
-    @GetMapping("/home")
-    public String main() {
-        return "home";
-    }
 
     @PostMapping("/insert")
-    public String insert(CrawlDto crawlDto) {
+    public void insert() {
         ArrayList<CrawlDto> crawlDtoList = crawlService.crawling();
         crawlService.insertData(crawlDtoList);
-        return crawlDtoList.toString();
+
     }
+
+
 }

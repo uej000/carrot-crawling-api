@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.ArrayList;
-import static java.lang.Integer.parseInt;
+import java.util.List;
 
 
 public class Crawling {
@@ -33,44 +33,38 @@ public class Crawling {
     public ArrayList<CrawlDto> crawl() {
         ArrayList<CrawlDto> dataList = new ArrayList<>();
         CrawlDto dto = null;
-        int a = 0;
 
+        driver.get(url);
 
-        while (true) {
-            a++;
-            driver.get(url);
+        // 카드 항목들을 전부 가져옵니다.
+        List<WebElement> cards = driver.findElements(By.className("card-top"));
 
-            element = driver.findElement(By.xpath("/html/body/main/section[2]/div[1]/article[5]/a/div[2]/h2"));
-            String title = element.getAttribute("title");
-
-            element = driver.findElement(By.xpath("/html/body/main/section[2]/div[1]/article[5]/a/div[2]/div[1]"));
-            String priceString = element.getAttribute("price");
-            int price = Integer.parseInt(priceString);
-
-            element = driver.findElement(By.xpath("/html/body/main/section[2]/div[1]/article[5]/a/div[2]/div[2]"));
-            String location = element.getAttribute("location");
-
-            element = driver.findElement(By.xpath("/html/body/main/section[2]/div[1]/article[5]/a/div[2]/div[3]/span[1]"));
-            String interestString = element.getAttribute("interest");
-            int interest = Integer.parseInt(interestString);
-
-            element = driver.findElement(By.xpath("/html/body/main/section[2]/div[1]/article[5]/a/div[2]/div[3]/span[2]"));
-            String chatCountString = element.getAttribute("chat-count");
-            int chatCount = Integer.parseInt(chatCountString);
-
+        for (WebElement card : cards) {
             dto = new CrawlDto();
+
+            element = card.findElement(By.className("card-title"));
+            String title = element.getText();
             dto.setTitle(title);
-            System.out.println(title);
-            dto.setLocation(location);
-            dto.setChatCount(chatCount);
+
+            element = card.findElement(By.className("card-price"));
+            String priceString = element.getText().replace("원", "").replace(",", "").trim();
+            int price = Integer.parseInt(priceString);
             dto.setPrice(price);
+
+            element = card.findElement(By.className("card-region-name"));
+            String location = element.getText();
+            dto.setLocation(location);
+
+            element = card.findElement(By.className("card-counts"));
+            String[] counts = element.getText().split("∙");
+            int interest = Integer.parseInt(counts[0].replace("관심", "").trim());
+            int chatCount = Integer.parseInt(counts[1].replace("채팅", "").trim());
             dto.setInterest(interest);
+            dto.setChatCount(chatCount);
 
             dataList.add(dto);
-            if(a >= 10) {
-                break;
             }
-        }
         return dataList;
+        }
+
     }
-}

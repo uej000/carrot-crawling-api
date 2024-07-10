@@ -1,8 +1,8 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.cmsoft.crawling.dto.CrawlDto" %>SS
+<%@ page import="com.cmsoft.crawling.dto.CrawlDto" %>
 <%@ page import="com.cmsoft.crawling.crawl.Crawling" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<<!doctype html>
+<!doctype html>
 <html lang="kr">
 <head>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-<h1>리스트</h1>
+<h1>크롤링 데이터</h1>
 <%--ssr 방식--%>
 <%
     Crawling crawler = new Crawling();
@@ -37,6 +37,7 @@
 <%= html_tag %>
 <div class="button-container">
     <input type="button" class="btn" value="데이터삽입" id="insertbtn">
+    <input type="button" class="btn" value="데이터목록" id="databtn"  onclick="location.href='/data'">
 </div>
 <script>
     <%--  csr 방식--%>
@@ -61,7 +62,7 @@
                 dataType: 'text',
                 success: function(response) {
                     // 서버로부터의 응답에 따라 적절한 동작 수행
-                    location.reload(); // 페이지 새로고침
+                    location.href="datalist"; // 페이지 새로고침
                 },
                 error: function(xhr, status, error) {
                     // 에러 처리
